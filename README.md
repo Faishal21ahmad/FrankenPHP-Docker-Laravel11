@@ -1,4 +1,4 @@
-# **PHP Laravel 11 Server Setup**  
+# **Setup Server FrankenPHP untuk Laravel 11 dengan docker**  
 Menggunakan Docker, Laravel 11, MariaDB, PhpMyAdmin, dan FrankenPHP
 
 ## **Pendahuluan**  
