@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  appserver:
+    container_name: franken_lara
+    image: franken_lara
+    build: .
+    restart: always
+    volumes:
+      - ./apps:/app
+    ports:
+      - "7772:80"
+      - "774:443"
+      - "774:443/udp"
+    tty: true
+    networks:
+      laravel:
+        ipv4_address: 172.20.0.2
+        
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: X321Dsq
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user1woke
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      laravel:
+        ipv4_address: 172.20.0.3
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: 172.20.0.3
+      PMA_USER: root
+      PMA_PASSWORD: X321Dsq
+    ports:
+      - "7773:80"
+    networks:
+      laravel:
+        ipv4_address: 172.20.0.4
+
+networks:
+  laravel:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
